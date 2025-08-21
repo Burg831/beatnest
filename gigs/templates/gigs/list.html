@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Gigs — BeatNest{% endblock %}
+
+{% block content %}
+<h1 class="mb-2">Latest Gigs</h1>
+<ul>
+  {% for g in gigs %}
+    <li>
+      <a href="{{ g.url }}" target="_blank" rel="noopener">{{ g.title }}</a>
+      — {{ g.company }} · {{ g.location }}
+      <small class="muted">{{ g.posted_at|date:"Y-m-d H:i" }}</small>
+    </li>
+  {% empty %}
+    <li>No gigs yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
