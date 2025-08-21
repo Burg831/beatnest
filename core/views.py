@@ -1,7 +1,6 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def home(request):
-    return HttpResponse("""<h1>BeatNest is live 🎶</h1><p>Find the Beat. Land the 
-Gig.</p>""")
+    return render(request, "core/home.html")
 
 
