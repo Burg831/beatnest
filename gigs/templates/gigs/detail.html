@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gig.title }} – BeatNest{% endblock %}
+
+{% block content %}
+<h1>{{ gig.title }}</h1>
+<p><strong>{{ gig.company }}</strong> — {{ gig.location }}</p>
+<p>Posted: {{ gig.posted_at|date:"M j, Y, g:i a" }}</p>
+{% if gig.url %}
+  <p><a href="{{ gig.url }}" target="_blank" rel="noopener">View 
+/ Apply</a></p>
+{% endif %}
+<p><a href="{% url 'gig_list' %}">← Back to gigs</a></p>
+{% endblock %}
+

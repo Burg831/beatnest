@@ -7,6 +7,9 @@ class Gig(models.Model):
     url = models.URLField(blank=True)
     posted_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-posted_at']
+
     def __str__(self):
         return self.title
 
