@@ -1,18 +1,41 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block title %}Gigs — BeatNest{% endblock %}
 
 {% block content %}
-<h1 class="mb-2">Latest Gigs</h1>
+<h1>Gigs</h1>
+
+<form method="get" action=".">
+  <input type="text" name="q" value="{{ q }}" 
+placeholder="Search gigs...">
+  <button type="submit">Search</button>
+</form>
+
 <ul>
-  {% for g in gigs %}
-    <li>
-      <a href="{{ g.url }}" target="_blank" rel="noopener">{{ g.title }}</a>
-      — {{ g.company }} · {{ g.location }}
-      <small class="muted">{{ g.posted_at|date:"Y-m-d H:i" }}</small>
-    </li>
-  {% empty %}
-    <li>No gigs yet.</li>
-  {% endfor %}
+{% for g in gigs %}
+  <li>
+    <a href="{% url 'gig_detail' g.pk %}">{{ g.title }}</a>
+    — {{ g.company }} — {{ g.location }}
+    <small class="muted">({{ g.posted_at|date:"Y-m-d H:i" 
+}})</small>
+    {% if g.url %} · <a href="{{ g.url }}" target="_blank" 
+rel="noopener">Apply</a>{% endif %}
+  </li>
+{% empty %}
+  <li>No gigs yet.</li>
+{% endfor %}
 </ul>
+
+<nav>
+  {% if page_obj.has_previous %}
+    <a href="?q={{ q }}&page={{ page_obj.previous_page_number 
+}}">← Prev</a>
+  {% endif %}
+  <span>Page {{ page_obj.number }} of {{ 
+page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a href="?q={{ q }}&page={{ page_obj.next_page_number 
+}}">Next →</a>
+  {% endif %}
+</nav>
 {% endblock %}
 
