@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}BeatNest{% endblock %}</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem auto; max-width: 
+720px; line-height: 1.55; padding: 0 1rem; }
+  h1 { margin: 0 0 1rem; }
+
+  /* search */
+  form[role="search"] { display: flex; gap: .5rem; align-items: center; margin: .75rem 0 1rem; }
+  input[type="text"] { flex: 1; padding: .55rem .65rem; border: 1px solid currentColor; border-color: 
+color-mix(in oklab, currentColor 20%, transparent); border-radius: .6rem; background: transparent; }
+  .btn { padding: .45rem .7rem; border: 1px solid currentColor; border-radius: .8rem; background: transparent; }
+  .btn.ghost { opacity: .75; }
+  .btn.tiny { padding: .25rem .5rem; font-size: .9rem; }
+
+  /* list */
+  .list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .75rem; }
+  .item { padding: .65rem .8rem; border: 1px solid color-mix(in oklab, currentColor 18%, transparent); 
+border-radius: .85rem; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: .75rem; }
+  .title { font-weight: 700; text-decoration: none; }
+  .title:hover { text-decoration: underline; text-underline-offset: .18em; }
+
+  .meta { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: .35rem; }
+  .badge { font-size: .85rem; padding: .12rem .5rem; border: 1px solid currentColor; border-radius: .75rem; 
+opacity: .75; }
+  .muted { opacity: .65; }
+
+  /* pager */
+  .pager { display: flex; gap: .75rem; align-items: center; margin-top: 1rem; }
+  .pager a { text-decoration: underline; text-underline-offset: .18em; }
+</style>
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>
+

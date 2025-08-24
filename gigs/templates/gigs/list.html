@@ -1,40 +1,49 @@
-{% extends 'base.html' %}
-{% block title %}Gigs — BeatNest{% endblock %}
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Gigs – BeatNest{% endblock %}
 
 {% block content %}
 <h1>Gigs</h1>
 
-<form method="get" action=".">
-  <input type="text" name="q" value="{{ q }}" 
-placeholder="Search gigs...">
-  <button type="submit">Search</button>
+<form method="get" role="search">
+  <input type="text" name="q" value="{{ q }}" placeholder="Search gigs…">
+  {% if q %}<a class="btn ghost" href="{% url 'gig_list' %}">Clear</a>{% endif %}
+  <button class="btn" type="submit">Search</button>
 </form>
 
-<ul>
-{% for g in gigs %}
-  <li>
-    <a href="{% url 'gig_detail' g.pk %}">{{ g.title }}</a>
-    — {{ g.company }} — {{ g.location }}
-    <small class="muted">({{ g.posted_at|date:"Y-m-d H:i" 
-}})</small>
-    {% if g.url %} · <a href="{{ g.url }}" target="_blank" 
-rel="noopener">Apply</a>{% endif %}
-  </li>
-{% empty %}
-  <li>No gigs yet.</li>
-{% endfor %}
+{% if page_obj.paginator.count %}
+  <p class="muted" style="margin:.5rem 0 0;">
+    {{ page_obj.paginator.count|intcomma }} result{{ page_obj.paginator.count|pluralize }}
+    {% if q %} for “{{ q }}”{% endif %}
+  </p>
+{% endif %}
+
+
+<ul class="u_gigs">
+  {% for g in gigs %}
+    <li class="gig">
+      <div class="row">
+        <a class="title" href="{% url 'gig_detail' g.pk %}">{{ g.title }}</a>
+        {% if g.url %}<a class="btn tiny" href="{{ g.url }}" target="_blank" rel="noopener">Apply</a>{% endif %}
+      </div>
+      <div class="meta">
+        <span class="badge">{{ g.company }}</span>
+        <span class="badge">{{ g.location }}</span>
+        <small class="muted">• {{ g.posted_at|naturaltime }}</small>
+      </div>
+    </li>
+  {% empty %}
+    <li class="gig"><span class="muted">No gigs found{% if q %} for “{{ q }}”{% endif %}.</span></li>
+  {% endfor %}
 </ul>
 
-<nav>
+<nav class="pager">
   {% if page_obj.has_previous %}
-    <a href="?q={{ q }}&page={{ page_obj.previous_page_number 
-}}">← Prev</a>
+    <a href="?q={{ q }}&page={{ page_obj.previous_page_number }}">← Prev</a>
   {% endif %}
-  <span>Page {{ page_obj.number }} of {{ 
-page_obj.paginator.num_pages }}</span>
+  <span class="muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
   {% if page_obj.has_next %}
-    <a href="?q={{ q }}&page={{ page_obj.next_page_number 
-}}">Next →</a>
+    <a href="?q={{ q }}&page={{ page_obj.next_page_number }}">Next →</a>
   {% endif %}
 </nav>
 {% endblock %}

@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # Local apps 'core',
      'core.apps.CoreConfig',
      'gigs.apps.GigsConfig',
-
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [
