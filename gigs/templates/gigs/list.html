@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
+
 {% block title %}Gigs – BeatNest{% endblock %}
 
 {% block content %}
@@ -7,8 +8,8 @@
 
 <form method="get" role="search">
   <input type="text" name="q" value="{{ q }}" placeholder="Search gigs…">
+  <button type="submit" class="btn">Search</button>
   {% if q %}<a class="btn ghost" href="{% url 'gig_list' %}">Clear</a>{% endif %}
-  <button class="btn" type="submit">Search</button>
 </form>
 
 {% if page_obj.paginator.count %}
@@ -17,7 +18,6 @@
     {% if q %} for “{{ q }}”{% endif %}
   </p>
 {% endif %}
-
 
 <ul class="u_gigs">
   {% for g in gigs %}
