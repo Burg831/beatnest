@@ -1,15 +1,18 @@
 {% extends "base.html" %}
+{% load humanize %}
+
 {% block title %}{{ gig.title }} – BeatNest{% endblock %}
 
 {% block content %}
-<p><a href="{% url 'gig_list' %}">← Back to gigs</a></p>
+<p><a href="{% url 'gig_list' %}{% if request.GET.q or request.GET.page %}?q={{ request.GET.q }}&page={{ 
+request.GET.page }}{% endif %}">← Back to gigs</a></p>
 
 <h1>{{ gig.title }}</h1>
-<p class="meta">{{ gig.company }} • {{ gig.location }}</p>
+<p class="meta">{{ gig.company }} · {{ gig.location }}</p>
 <p><small class="muted">Posted: {{ gig.posted_at|naturaltime }}</small></p>
 
 {% if gig.url %}
-  <p><a class="btn" href="{{ gig.url }}" target="_blank" rel="noopener">Apply</a></p>
+  <p><a class="btn" href="{{ gig.url }}" target="_blank" rel="noopener">View / Apply</a></p>
 {% endif %}
 {% endblock %}
 
